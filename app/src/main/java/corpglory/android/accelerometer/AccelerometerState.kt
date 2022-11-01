@@ -4,15 +4,15 @@ package corpglory.android.accelerometer
  * Created by evsluzh on 17.03.18.
  */
 class AccelerometerState {
-    var x: Double = 0.0
-    var y: Double = 0.0
-    var z: Double = 0.0
+    var acceleration = DoubleArray(3)
+    var speed = DoubleArray(3)
+    var gravity = DoubleArray(3)
     var time: Long = 0
 
-    constructor(x: Double, y: Double, z: Double, time: Long) {
-        this.x = x
-        this.y = y
-        this.z = z
+    constructor(acceleration: DoubleArray, speed: DoubleArray, gravity: DoubleArray, time: Long) {
+        this.acceleration = acceleration
+        this.speed = speed
+        this.gravity = gravity
         this.time = time
     }
 }

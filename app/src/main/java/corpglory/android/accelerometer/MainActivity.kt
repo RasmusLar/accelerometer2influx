@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), AccelerometerEventListener {
         super.onCreate(savedInstanceState)
 
         verticalLayout {
-            outView = textView("x=\ny=\nz=") {
+            outView = textView("ax=\tvx=\nay=\tvy=\naz=\tvz=") {
                 id = View.generateViewId()
                 textSize = 26f
             }
@@ -94,15 +94,22 @@ class MainActivity : AppCompatActivity(), AccelerometerEventListener {
     }
 
     override fun onStateReceived(state: AccelerometerState) {
-        val text = "x=${state.x.format(3).replaceFirst(",", ".")}\n" +
-                "y=${state.y.format(3).replaceFirst(",", ".")}\n" +
-                "z=${state.z.format(3).replaceFirst(",", ".")}"
+        val text = "ax=${state.acceleration[0].format(2).replaceFirst(",", ".")}\t" +
+                "vx=${state.speed[0].format(2).replaceFirst(",", ".")}\n" +
+                "ay=${state.acceleration[1].format(2).replaceFirst(",", ".")}\t" +
+                "vy=${state.speed[1].format(2).replaceFirst(",", ".")}\n" +
+                "az=${state.acceleration[2].format(2).replaceFirst(",", ".")}\t" +
+                "vz=${state.speed[2].format(2).replaceFirst(",", ".")}"
         outView.text = text
 
         val message = "vals " +
-                "x=${state.x.format(3).replaceFirst(",", ".")}" +
-                ",y=${state.y.format(3).replaceFirst(",", ".")}" +
-                ",z=${state.z.format(3).replaceFirst(",", ".")}" +
+                "ax=${state.acceleration[0].format(4).replaceFirst(",", ".")}" +
+                ",ay=${state.acceleration[1].format(4).replaceFirst(",", ".")}" +
+                ",az=${state.acceleration[2].format(4).replaceFirst(",", ".")}" +
+
+                ",vx=${state.speed[0].format(4).replaceFirst(",", ".")}" +
+                ",vy=${state.speed[1].format(4).replaceFirst(",", ".")}" +
+                ",vz=${state.speed[2].format(4).replaceFirst(",", ".")}" +
                 " ${state.time}\n"
 
         database?.sendMsg(state)
